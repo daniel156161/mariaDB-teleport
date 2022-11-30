@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_IMAGE_NAME="daniel156161/mysql-teleport"
+DOCKER_IMAGE_NAME="daniel156161/mariadb-teleport"
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 build_docker_image() {
