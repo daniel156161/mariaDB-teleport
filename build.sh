@@ -19,7 +19,7 @@ run_docker_container() {
     "$DOCKER_IMAGE_NAME":"$GIT_BRANCH"
 }
 
-if [ "$GIT_BRANCH" == "master" ]; then
+if [ "$GIT_BRANCH" == "main" ]; then
   GIT_BRANCH="latest"
 fi
 
