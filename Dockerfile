@@ -3,6 +3,9 @@ FROM mariadb:latest
 ENV TZ=Europe/Vienna
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+COPY docker-entrypoint.sh /usr/local/bin/
+COPY myteleport.cnf /etc/mysql/mariadb.conf.d/z-custom-for-teleport.cnf
+
 RUN apt-get update && apt-get install -y curl
 
 RUN curl https://apt.releases.teleport.dev/gpg \
