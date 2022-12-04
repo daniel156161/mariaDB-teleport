@@ -14,8 +14,10 @@ run_docker_container() {
   echo "Running..."
   docker run -d \
     -p 3306:3306 \
+    -p 8080:80 \
     -e TZ="Europe/Vienna" \
     -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD="true" \
+    -e RUN_WEBSERVER="yes" \
     "$DOCKER_IMAGE_NAME":"$GIT_BRANCH"
 }
 

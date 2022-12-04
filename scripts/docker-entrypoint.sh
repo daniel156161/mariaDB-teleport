@@ -544,8 +544,22 @@ _check_to_run_teleport() {
 	fi
 }
 
+_run_web_server() {
+	if [ ! -z "$RUN_WEBSERVER" ]; then
+		if [ ! -f "/var/www/phpmyadmin/.installed" ]; then
+			export SECRET=`php -r 'echo base64_encode(random_bytes(24));'`
+			echo "\$cfg['blowfish_secret'] = '$SECRET';" >> /var/www/phpmyadmin/config.inc.php
+			chown www-data:www-data /var/www/phpmyadmin/config.inc.php
+			touch "/var/www/phpmyadmin/.installed"
+		fi
+		php-fpm8.1 &
+		nginx &
+	fi
+}
+
 # If we are sourced from elsewhere, don't perform any further actions
 if ! _is_sourced; then
 	_check_to_run_teleport
+	_run_web_server
 	_main "$@"
 fi
