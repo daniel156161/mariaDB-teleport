@@ -12,9 +12,10 @@ build_docker_image() {
 
 run_docker_container() {
   echo "Running..."
-  docker run -d \
+  docker run -it -d \
     -p 3306:3306 \
-    -p 8080:80 \
+    -p 80:80 \
+    -v "$PWD/certs:/certs/" \
     -e TZ="Europe/Vienna" \
     -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD="true" \
     -e RUN_WEBSERVER="yes" \
