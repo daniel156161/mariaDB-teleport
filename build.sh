@@ -7,7 +7,9 @@ build_docker_image() {
   TAG="$1"
 
   echo "Building..."
-  docker build -t "$DOCKER_IMAGE_NAME:$TAG" .
+  docker buildx build --push \
+    --platform linux/amd64 \
+    --tag "$DOCKER_IMAGE_NAME:$TAG" .
 }
 
 run_docker_container() {
