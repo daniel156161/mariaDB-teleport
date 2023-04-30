@@ -1,6 +1,6 @@
 FROM mariadb:latest
 
-ARG phpmyadmin_version="5.2.0"
+ARG phpmyadmin_version="5.2.1"
 ARG ubuntu_codename="jammy"
 
 ENV TZ=Europe/Vienna
