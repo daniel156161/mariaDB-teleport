@@ -1,18 +1,10 @@
 #!/bin/bash
+source "../build-functions.sh"
+source "../build-config.sh"
 
 DOCKER_IMAGE_NAME="daniel156161/mariadb-teleport"
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-build_docker_image() {
-  TAG="$1"
-
-  echo "Building..."
-  docker buildx build --push \
-    --platform linux/amd64 \
-    --tag "$DOCKER_IMAGE_NAME:$TAG" .
-}
-
-run_docker_container() {
+function run_docker_container {
   echo "Running..."
   docker run -it -d \
     -p 3306:3306 \
@@ -21,26 +13,18 @@ run_docker_container() {
     -e TZ="Europe/Vienna" \
     -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD="true" \
     -e RUN_WEBSERVER="yes" \
-    "$DOCKER_IMAGE_NAME":"$GIT_BRANCH"
+    "$DOCKER_IMAGE_NAME:$GIT_BRANCH"
 }
-
-if [ "$GIT_BRANCH" == "main" ]; then
-  GIT_BRANCH="latest"
-fi
 
 case "$1" in
   run)
     run_docker_container
     ;;
   build)
-    build_docker_image "$GIT_BRANCH"
-    ;;
-  upload)
-    build_docker_image "$GIT_BRANCH"
-    docker push "$DOCKER_IMAGE_NAME:$GIT_BRANCH"
+    build_docker_image "$DOCKER_IMAGE_NAME:$GIT_BRANCH"
     ;;
   *)
-    echo "Usage: $0 {build|upload}"
+    echo "Usage: $0 {run|build}"
     exit 1
     ;;
 esac
