@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y curl
 RUN curl https://apt.releases.teleport.dev/gpg \
   -o /usr/share/keyrings/teleport-archive-keyring.asc
 RUN export VERSION_CODENAME=$ubuntu_codename && echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] \
-  https://apt.releases.teleport.dev/ubuntu ${VERSION_CODENAME?} stable/v12" \
+  https://apt.releases.teleport.dev/ubuntu ${VERSION_CODENAME?} stable/v13" \
   | tee /etc/apt/sources.list.d/teleport.list > /dev/null
 
 RUN apt-get update && apt-get install -y teleport nginx wget unzip
