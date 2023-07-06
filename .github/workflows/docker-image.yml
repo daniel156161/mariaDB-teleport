@@ -1,7 +1,7 @@
 name: Build and Push Docker Container
 on:
   schedule:
-    - cron: "5 20 * * 4"
+    - cron: "40 20 * * 4"
 
 jobs:
   build-and-push:
@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push Docker image for latest tag
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
