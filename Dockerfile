@@ -33,7 +33,7 @@ RUN rm -rf phpMyAdmin-$phpmyadmin_version-all-languages.zip
 COPY --chown=www-data:www-data configs/phpmyadmin.config.php /var/www/phpmyadmin/config.inc.php
 RUN chown -R www-data:www-data /var/www/phpmyadmin && chmod 777 /var/www/phpmyadmin
 
-RUN rm -rf /var/www/phpmyadmin/composer.lock /var/www/phpmyadmin/package.json /phpMyAdmin-$phpmyadmin_version-all-languages
+RUN rm -rf /var/www/phpmyadmin/composer.lock && rm -rf /var/www/phpmyadmin/package.json && rm -rf /phpMyAdmin-$phpmyadmin_version-all-languages
 
 VOLUME /var/lib/mysql
 ENTRYPOINT ["docker-entrypoint.sh"]
