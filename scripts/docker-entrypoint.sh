@@ -552,7 +552,7 @@ _run_web_server() {
 			chown www-data:www-data /var/www/phpmyadmin/config.inc.php
 			touch "/var/www/phpmyadmin/.installed"
 		fi
-		php-fpm8.1 &
+		php-fpm8.3 &
 		nginx &
 	fi
 }
