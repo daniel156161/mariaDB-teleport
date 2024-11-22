@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y nginx wget unzip sudo curl php-imagick 
 RUN curl https://apt.releases.teleport.dev/gpg \
   -o /usr/share/keyrings/teleport-archive-keyring.asc
 RUN export VERSION_CODENAME=$ubuntu_codename && echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] \
-  https://apt.releases.teleport.dev/ubuntu ${VERSION_CODENAME?} stable/v16" \
+  https://apt.releases.teleport.dev/ubuntu ${VERSION_CODENAME?} stable/v17" \
   | tee /etc/apt/sources.list.d/teleport.list > /dev/null
 
 RUN apt-get update && apt-get install -y teleport
@@ -34,6 +34,9 @@ COPY --chown=www-data:www-data configs/phpmyadmin.config.php /var/www/phpmyadmin
 RUN chown -R www-data:www-data /var/www/phpmyadmin && chmod 777 /var/www/phpmyadmin
 
 RUN rm -rf /var/www/phpmyadmin/composer.lock && rm -rf /var/www/phpmyadmin/package.json && rm -rf /phpMyAdmin-$phpmyadmin_version-all-languages
+
+#Set sudo password neat of www-data to nothing
+#RUN sh -c "echo 'www-data ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"
 
 VOLUME /var/lib/mysql
 ENTRYPOINT ["docker-entrypoint.sh"]
