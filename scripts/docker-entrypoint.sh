@@ -727,7 +727,7 @@ _run_web_server() {
 			touch "/var/www/phpmyadmin/.installed"
 		fi
 
-		chown -R www-data:www-data /var/log/nginx
+		#chown -R www-data:www-data /var/log/nginx
 		#touch /var/log/php8.3-fpm.log && chown www-data:www-data /var/log/php8.3-fpm.log
 
 		php-fpm8.3 &
